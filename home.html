@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <div class="text-center mt-5"><b>Calculator</b></div>
+    <div class="mt-3">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col">
+                <input type="text" id="display" class="form-control text-right" disabled>
+            </div>
+            <div class="col-4"></div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col">
+                <table class="table border">
+                    <tr>
+                        <td><button id="num1" value="1" class="btn-outline-secondary form-control">1</button></td>
+                        <td><button id="num2" value="2" class="btn-outline-secondary form-control">2</button></td>
+                        <td><button id="num3" value="3"class="btn-outline-secondary form-control">3</button></td>
+                        <td><button id="del" value="" class="btn-outline-danger form-control"><</button></td>
+                        <td><button id="clr" class="btn-outline-danger form-control">clear</button></td>
+                    </tr>
+                    <tr>
+                        <td><button id="num4" value="4" class="btn-outline-secondary form-control">4</button></td>
+                        <td><button id="num5" value="5" class="btn-outline-secondary form-control">5</button></td>
+                        <td><button id="num6" value="6" class="btn-outline-secondary form-control">6</button></td>
+                        <td><button id="mul" value="*" class="btn-outline-success form-control">x</button></td>
+                    </tr>
+                    <tr>
+                        <td><button id="num7" value="7" class="btn-outline-secondary form-control">7</button></td>
+                        <td><button id="num8" value="8" class="btn-outline-secondary form-control">8</button></td>
+                        <td><button id="num9" value="9" class="btn-outline-secondary form-control">9</button></td>
+                        <td><button id="div" value="/" class="btn-outline-success form-control">/</button></td>
+                    </tr>
+                    <tr>
+                        <td><button id="num0" value="0" class="btn-outline-secondary form-control">0</button></td>
+                        <td><button id="dot" value="." class="btn-outline-secondary form-control">.</button></td>
+                        <td><button id="add" value="+" class="btn-outline-success form-control">+</button></td>
+                        <td><button id="sub" value="-" class="btn-outline-success form-control">-</button></td>
+                        <td><button id="eql" value="=" class="btn-outline-primary form-control">=</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-4"></div>
+        </div>
+
+    </div>
+
+
+    <script>
+
+        let display = document.getElementById('display');
+
+        var num = document.querySelectorAll('#num0, #num1, #num2, #num3, #num4, #num5, #num6, #num7, #num8, #num9');
+        
+        var clr = document.getElementById('clr');
+        var add = document.getElementById('add');
+        var sub = document.getElementById('sub');
+        var mul = document.getElementById('mul');
+        var div = document.getElementById('div');
+
+        var del = document.getElementById('del');
+        var dot = document.getElementById('dot');
+
+        var eql = document.getElementById('eql');
+
+        var array = [];
+        var string = '';
+
+        function displayfn() {
+            
+            for (let i = 0; i < array.length; i++) {
+                const element = array[i];
+
+                display.value = array.join('');
+
+                console.log(display.value);
+                
+            }
+        }
+
+        for (let i = 0; i < 10; i++) {
+            num[i].addEventListener('click', () => {
+
+            array.push(num[i].value);
+
+           displayfn();
+
+            console.log(array);
+            }) 
+            
+        }
+
+        dot.addEventListener('click', () => {
+            array.push('.');
+            console.log(array);
+            display.value = array.join('');
+        })
+
+
+        del.addEventListener('click', () => {
+            array.pop(-1);
+            console.log(array);
+            display.value = array.join('');
+        })
+
+        clr.addEventListener('click', () => {
+            display.value = '';
+            array = [];
+            console.log(array);
+        })
+        
+        add.addEventListener('click', () => {
+           array.push('+');
+            console.log(array);
+
+           displayfn();
+            
+        })
+        
+        sub.addEventListener('click', () => {
+            array.push('-');
+            console.log(array);
+
+           displayfn();
+            
+        }) 
+        
+        mul.addEventListener('click', () => {
+            array.push('*');
+            console.log(array);
+
+           displayfn();
+
+        })
+
+        div.addEventListener('click', () => {
+            array.push('/');
+            console.log(array);
+
+           displayfn();
+
+        })
+
+        function cl(array){
+            console.log(array);
+        }
+
+        eql.addEventListener('click', () => {
+            try {
+                for (let i = 0; i < array.length; i++) {
+                const element = array[i];
+                display.value = eval(array.join(''));
+            }
+            } catch (error) {
+                display.value = 'error';
+            }
+           
+
+            array = [];
+            array.push(display.value);
+            cl(array);
+
+            blur();
+
+        })
+
+    </script>
+</body>
+</html>
